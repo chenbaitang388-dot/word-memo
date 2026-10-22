@@ -11,7 +11,7 @@ import os from 'node:os';
 
 const CHROME = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
 const PORT = 9333;
-const BASE = 'http://127.0.0.1:8123/';
+const BASE = process.env.WM_BASE || 'http://127.0.0.1:8123/';
 const SHOTS = path.resolve('lab/shots');
 fs.mkdirSync(SHOTS, { recursive: true });
 

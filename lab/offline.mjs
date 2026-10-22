@@ -9,7 +9,7 @@ import os from 'node:os';
 
 const CHROME = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
 const PORT = 9334;
-const BASE = 'http://127.0.0.1:8123/';
+const BASE = process.env.WM_BASE || 'http://127.0.0.1:8123/';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 let pass = 0;
@@ -72,7 +72,12 @@ async function main() {
   console.log('\n[1] first load, wait for SW');
   await send('Page.navigate', { url: BASE });
   await sleep(1200);
-  const swState = await evaluate(`navigator.serviceWorker.ready.then(r => r.active ? r.active.state : 'none')`);
+  let swState = 'none';
+  for (let i = 0; i < 20; i++) {
+    swState = await evaluate(`navigator.serviceWorker.ready.then(r => r.active ? r.active.state : 'none')`);
+    if (swState === 'activated') break;
+    await sleep(500);
+  }
   check(swState === 'activated', `service worker activated (got ${swState})`);
 
   const cached = await evaluate(`(async () => {
@@ -83,7 +88,8 @@ async function main() {
     return { keys, count: reqs.length, urls: reqs.map(r => new URL(r.url).pathname) };
   })()`);
   check(cached.count >= 6, `precached ${cached.count} files`);
-  check(cached.urls?.includes('/src/app.js') && cached.urls?.includes('/styles.css'), 'app shell cached', JSON.stringify(cached.urls));
+  const has = (p) => (cached.urls || []).some((u) => u.endsWith(p));
+  check(has('/src/app.js') && has('/styles.css') && has('/index.html'), 'app shell cached', JSON.stringify(cached.urls));
 
   // 存点数据，等它保存
   await evaluate(`(() => {

@@ -2,9 +2,12 @@
 
 一个纯静态的单词记忆 PWA。电脑上传一次，手机浏览器打开、加到主屏幕，之后断网也能背。
 
+**在线地址：https://chenbaitang388-dot.github.io/word-memo/**
+
 - 没有任何后端，数据全部存在浏览器本地
 - 没有构建步骤：改完直接刷新就是最新版
 - 无第三方依赖，Node 版仅用于跑测试
+- 部署方式：GitHub Pages（`main` 分支根目录），推送即发布
 
 ## 目录
 
@@ -47,18 +50,23 @@ node lab/offline.mjs         # 断网能不能打开
 
 ## 部署到 GitHub Pages
 
-1. 在 GitHub 建一个**公开**仓库（例如 `word-memo`）。
-2. 把这个目录里的文件推到仓库根目录（`index.html` 要在根上）：
-   ```bash
-   git remote add origin https://github.com/<你的用户名>/word-memo.git
-   git branch -M main
-   git push -u origin main
-   ```
-3. 仓库 Settings → Pages → Source 选 `Deploy from a branch`，分支 `main`，目录 `/ (root)`。
-4. 等 1~2 分钟，访问 `https://<你的用户名>.github.io/word-memo/`。
-5. 手机上打开这个网址 → 分享 → 添加到主屏幕。
+已经部署好了，仓库：`chenbaitang388-dot/word-memo`（公开仓库，Pages 免费档需要公开）。
 
-改了代码以后：把 `sw.js` 里的 `VERSION` 加一档再推，手机下次打开会自动换成新版。
+改完代码重新发布只需：
+
+```bash
+git add -A && git commit -m "说明" && git push
+```
+
+注意把 `sw.js` 里的 `VERSION` 加一档，手机下次打开才会换新版（否则会一直用缓存里的旧版）。
+
+首次从零部署的步骤（备查）：
+
+1. 在 GitHub 建一个**公开**仓库（例如 `word-memo`）。
+2. 把这个目录里的文件推到仓库根目录（`index.html` 要在根上）。
+3. 仓库 Settings → Pages → Source 选 `Deploy from a branch`，分支 `main`，目录 `/ (root)`。
+4. 等 1~2 分钟，访问 `https://<用户名>.github.io/word-memo/`。
+5. 手机上打开这个网址 → 分享 → 添加到主屏幕。
 
 ## 设计上的几个决定
 

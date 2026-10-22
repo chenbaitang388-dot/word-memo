@@ -1,6 +1,8 @@
 # 测试产物与本地工具，不进版本库
 lab/shots/
 lab/bin/
+lab/gh-token.txt
+lab/ghconfig/
 lab/*.log
 node_modules/
 out/
