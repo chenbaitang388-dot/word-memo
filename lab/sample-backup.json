@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "books": [{ "id": "bzz1", "name": "备份恢复测试", "on": true, "createdAt": 1700000000000 }],
+  "words": [
+    { "id": "wzz1", "bookId": "bzz1", "word": "zebra", "pos": "n", "meaning": "斑马", "phonetic": "", "createdAt": 1700000000000 },
+    { "id": "wzz2", "bookId": "bzz1", "word": "zeal", "pos": "n", "meaning": "热情", "phonetic": "", "createdAt": 1700000000000 }
+  ],
+  "prog": {},
+  "daily": {},
+  "settings": { "newPerDay": 20, "reviewPerDay": 200, "mode": "auto" },
+  "lastExport": 1700000000000
+}
